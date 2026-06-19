@@ -1,0 +1,10 @@
+# Built artifact — produced by `make build` or the release workflow
+*.alfredworkflow
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp

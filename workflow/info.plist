@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>org.pupazzo.github-alfred</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>6D1A4B21-8965-4815-8E44-D8D3C983E0C4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AD3ABF20-64D8-4CB4-8D73-AA73B23C34DA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Patrick Martini</string>
+	<key>description</key>
+	<string>List repos from the emartech GitHub org and open them in the default browser, focusing an existing tab if one is open.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>GitHub Repos (emartech)</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>ghr</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading repos…</string>
+				<key>script</key>
+				<string>./repos.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search emartech org repos</string>
+				<key>title</key>
+				<string>Search GitHub repos</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>6D1A4B21-8965-4815-8E44-D8D3C983E0C4</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>osascript open_or_focus.applescript "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>AD3ABF20-64D8-4CB4-8D73-AA73B23C34DA</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>GitHub Repos (emartech)
+
+Type `ghr` (then optional filter text) to search repos in the emartech GitHub org.
+
+Selecting a repo opens it in your default browser. If a Chrome or Safari tab is already open with that URL, the existing tab is focused instead of opening a new one.
+
+Requirements:
+- gh CLI installed (brew install gh)
+- gh authenticated to github.com (gh auth login --hostname github.com)
+</string>
+	<key>uidata</key>
+	<dict>
+		<key>6D1A4B21-8965-4815-8E44-D8D3C983E0C4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+		<key>AD3ABF20-64D8-4CB4-8D73-AA73B23C34DA</key>
+		<dict>
+			<key>xpos</key>
+			<integer>320</integer>
+			<key>ypos</key>
+			<integer>40</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/basetta/alfred-github-workflow</string>
+</dict>
+</plist>
