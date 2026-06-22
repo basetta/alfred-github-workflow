@@ -2,10 +2,20 @@
 
 # Alfred passes the typed query as $1
 QUERY="${1:-}"
-ORG="emartech"
 
 CACHE_DIR="${HOME}/Library/Caches/org.pupazzo.github-alfred"
-CACHE_FILE="${CACHE_DIR}/repos.json"
+
+# Read active gh user for github.com from local config (fast — no network).
+# Falls back to "anon" if hosts.yml is missing or unreadable. Used to scope
+# the cache per-account so switching gh accounts doesn't serve stale results.
+GH_USER=$(awk '
+  /^github\.com:/         { in_host=1; next }
+  /^[^ \t]/               { in_host=0 }
+  in_host && /^[ \t]+user:/ { print $2; exit }
+' "${HOME}/.config/gh/hosts.yml" 2>/dev/null)
+GH_USER="${GH_USER:-anon}"
+
+CACHE_FILE="${CACHE_DIR}/repos-${GH_USER}.json"
 STALE_SECS=60          # background refresh after this
 MAX_AGE_SECS=$((60*60*24))  # block-and-fetch if older than this (or missing)
 
@@ -36,11 +46,12 @@ cache_age() {
 }
 
 fetch_now() {
-  # Paginate through all org repos via the REST API. --paginate auto-walks
-  # next links; --jq emits one repo object per line (NDJSON). We post-process
-  # in Python to dedupe and wrap as a JSON array.
+  # Paginate through every repo the active gh user can see (personal +
+  # collaborator + all org memberships). --paginate auto-walks next links;
+  # --jq emits one repo object per line (NDJSON). Post-process in Python
+  # to dedupe and wrap as a JSON array.
   GH_HOST=github.com "$GH" api --paginate \
-    "orgs/${ORG}/repos?per_page=100&type=all" \
+    "user/repos?per_page=100&affiliation=owner,collaborator,organization_member" \
     --jq '.[] | {nameWithOwner: .full_name, description: .description, url: .html_url}' \
     2>/dev/null \
     | /usr/bin/python3 -c '
@@ -61,6 +72,7 @@ json.dump(out, sys.stdout)
 ' > "${CACHE_FILE}.tmp" \
     && [ -s "${CACHE_FILE}.tmp" ] \
     && mv "${CACHE_FILE}.tmp" "$CACHE_FILE"
+  rm -f "${CACHE_FILE}.tmp"  # clean up if the write produced an empty/partial file
 }
 
 age=$(cache_age)
@@ -121,6 +133,7 @@ for repo in data:
         "subtitle": desc,
         "arg": url,
         "autocomplete": name,
+        "icon": {"path": "repo.png"},
     }))
 
 ranked.sort(key=lambda x: x[0])

@@ -1,6 +1,6 @@
 BUNDLE := github-alfred.alfredworkflow
 SRC_DIR := workflow
-SRC_FILES := info.plist repos.sh open_or_focus.applescript
+SRC_FILES := info.plist repos.sh open_or_focus.applescript switch_list.sh switch_do.sh icon.png repo.png
 
 .PHONY: build clean install
 

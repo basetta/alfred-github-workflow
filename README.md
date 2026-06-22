@@ -25,9 +25,9 @@ An [Alfred](https://www.alfredapp.com/) workflow that lists repos in a GitHub or
 In Alfred, type:
 
 ```
-ghr            → list all repos
-ghr device     → filter by substring
-ghr foo bar    → match multiple terms (any order)
+gh            → list all repos
+gh device     → filter by substring
+gh foo bar    → match multiple terms (any order)
 ```
 
 Press <kbd>↵</kbd> on a result to open it in your default browser. If a tab with that URL is already open in Chrome or Safari, the existing tab is focused instead.

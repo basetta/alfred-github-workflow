@@ -5,7 +5,7 @@
 	<key>bundleid</key>
 	<string>org.pupazzo.github-alfred</string>
 	<key>category</key>
-	<string>Tools</string>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>6D1A4B21-8965-4815-8E44-D8D3C983E0C4</key>
@@ -21,15 +21,41 @@
 				<false/>
 			</dict>
 		</array>
+		<key>B1E1F100-0000-4000-A000-000000000001</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B1E1F100-0000-4000-A000-000000000002</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>B1E1F100-0000-4000-A000-000000000002</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B1E1F100-0000-4000-A000-000000000003</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Patrick Martini</string>
 	<key>description</key>
-	<string>List repos from the emartech GitHub org and open them in the default browser, focusing an existing tab if one is open.</string>
+	<string>List GitHub repos visible to the active gh account (personal, collaborator, and org repos) and open them in the default browser, focusing an existing tab if one is open.</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>GitHub Repos (emartech)</string>
+	<string>GitHub Repos</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -48,7 +74,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>ghr</string>
+				<string>gh</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -66,7 +92,7 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Search emartech org repos</string>
+				<string>Search GitHub repos you can access</string>
 				<key>title</key>
 				<string>Search GitHub repos</string>
 				<key>type</key>
@@ -104,13 +130,108 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>gh-switch</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading accounts…</string>
+				<key>script</key>
+				<string>./switch_list.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Switch active gh account on github.com</string>
+				<key>title</key>
+				<string>Switch GitHub account</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>B1E1F100-0000-4000-A000-000000000001</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./switch_do.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B1E1F100-0000-4000-A000-000000000002</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>gh account</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>B1E1F100-0000-4000-A000-000000000003</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
-	<string>GitHub Repos (emartech)
+	<string>GitHub Repos
 
-Type `ghr` (then optional filter text) to search repos in the emartech GitHub org.
+Type `gh` (then optional filter text) to search every GitHub repo visible to the active gh account — personal, collaborator, and org repos across all your memberships.
 
 Selecting a repo opens it in your default browser. If a Chrome or Safari tab is already open with that URL, the existing tab is focused instead of opening a new one.
+
+Type `gh-switch` to switch the active gh account on github.com. The repo list is cached per-account, so switching accounts shows the right set of repos.
 
 Requirements:
 - gh CLI installed (brew install gh)
@@ -131,6 +252,27 @@ Requirements:
 			<integer>320</integer>
 			<key>ypos</key>
 			<integer>40</integer>
+		</dict>
+		<key>B1E1F100-0000-4000-A000-000000000001</key>
+		<dict>
+			<key>xpos</key>
+			<integer>40</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
+		<key>B1E1F100-0000-4000-A000-000000000002</key>
+		<dict>
+			<key>xpos</key>
+			<integer>320</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
+		<key>B1E1F100-0000-4000-A000-000000000003</key>
+		<dict>
+			<key>xpos</key>
+			<integer>560</integer>
+			<key>ypos</key>
+			<integer>180</integer>
 		</dict>
 	</dict>
 	<key>version</key>
